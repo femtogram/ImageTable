@@ -41,6 +41,11 @@ class Screen(gtk.DrawingArea):
 		self.trans = 10;
 		self.loop_draw = True
 
+		self.nav_mouse = False
+		self.nav_window_height = 200
+		self.nav_preview_width = 1
+		self.nav_preview_height = 1
+
 		#self.s = sched.scheduler(time.time, time.sleep)
 		self.t = Thread(target=self.redraw)
 		self.t.start()
@@ -62,37 +67,49 @@ class Screen(gtk.DrawingArea):
 		self.draw(cr, *self.window.get_size())
 	
 	def on_mouse_down(self, widget, event):
-		self.mouse_down = True
+		print 'in nav?',self.in_nav_window(self.mouse_x, self.mouse_y)
+		print 'mouse_down?',self.mouse_down
+		if not self.mouse_down and self.in_nav_window(self.mouse_x, self.mouse_y):
+			self.nav_mouse = True
+			if hasattr(self, 'img'):
+				self.nav_offset(event)
+		else:
+			self.mouse_down = True
+
 		self.mouse_x = event.x
 		self.mouse_y = event.y
-		print(self.mouse_x, self.mouse_y)
+
 	
 	def on_mouse_up(self, widget, event):
 		self.mouse_down = False
+		self.nav_mouse = False
 
 	def on_scroll(self, widget, event):
 		if hasattr(self, 'img'):
 			prev_zoom = self.zoom
-			self.zoom += (-1 if event.direction else 1) * 0.1
+			self.zoom *= (0.9 if event.direction else 1.1)
 			s = self.zoom / prev_zoom
-			#s = prev_zoom
 			self.offset_x = event.x - s * (event.x - self.offset_x)
 			self.offset_y = event.y - s * (event.y - self.offset_y)
 
+	def nav_offset(self, mouse_event):
+		s = (self.zoom * self.img.get_width()) / 200
+		print self.nav_preview_width,self.nav_preview_height
+		self.offset_x = -(mouse_event.x - (self.window_width - 200 + self.nav_preview_width / 2)) * s
+		self.offset_y = -(mouse_event.y - 30 - self.nav_preview_height / 2) * s
+
+		#s = 1 / (200.0 / self.img.get_width()) # / self.zoom
+		#self.offset_x = -(mouse_event.x - (self.window_width - 100)) * s
+		#self.offset_y = -(mouse_event.y - 30 - self.nav_window_height / 2) * s
+
 	def on_mouse_move(self, widget, event):
-		if (
-				event.x >= self.window_width - self.trans and
-				event.x <= self.window_width and
-				event.y >= 30 and
-				event.y <= 200
-			):
+		if self.in_nav_window(event.x, event.y) or self.nav_mouse:
 			self.trans = 200
 		
 		else:
 			self.trans = 10
 
 		if self.mouse_down and hasattr(self, 'img'):
-			print(self.mouse_x, self.mouse_y)
 			delta_x = event.x - self.mouse_x
 			delta_y = event.y - self.mouse_y
 
@@ -102,7 +119,18 @@ class Screen(gtk.DrawingArea):
 			self.offset_x += delta_x
 			self.offset_y += delta_y
 
+		if self.nav_mouse and hasattr(self, 'img'):
+			self.nav_offset(event)
+
 		#self.queue_draw()
+
+	def in_nav_window(self, mx, my):
+		return (
+					mx >= self.window_width - self.trans and
+					mx <= self.window_width and
+					my >= 30 and
+					my <= self.nav_window_height
+			)
 
 	def on_key_press(self, widget, event):
 		keyname = gtk.gdk.keyval_name(event.keyval)
@@ -122,22 +150,51 @@ class Screen(gtk.DrawingArea):
 			#self.queue_draw()
 	
 	def draw_nav_window(self, cr, width, height):
+		border = 2
 		cr.save()
 		cr.translate(width - self.trans, 30)
-		cr.rectangle(0, 0, 200, 200)
 		cr.set_source_rgba(0.4, 0.4, 0.4, 0.8)
-		cr.fill()
-		
-		if hasattr(self, 'img'):
+		if not hasattr(self, 'img'):
+			self.nav_window_height = 200
+			cr.rectangle(-border, -border, 200 + border, 200 + border)
+			cr.fill()
+		else:
 			scalar = 200.0 / self.img.get_width()
-			print 'scalar: ', scalar
+			self.nav_window_height = scalar * self.img.get_height()
+			cr.rectangle(-border, -border, 200 + border, self.nav_window_height + 2 * border)
+			cr.fill()
+			
+			cr.save()
 			cr.scale(scalar, scalar)
 			gdkcr = gtk.gdk.CairoContext(cr)
 			tmpimg = self.img
 			tmpimg.add_alpha(False, 250, 250, 250)
 			gdkcr.set_source_pixbuf(tmpimg, 0, 0)
-			
 			gdkcr.paint()
+			cr.restore()
+
+			cr.rectangle(0, 0, 200, scalar * self.img.get_height())
+			cr.clip()
+
+			cr.set_line_width(1.5)
+
+			x1 = -self.offset_x * scalar / self.zoom
+			y1 = -self.offset_y * scalar / self.zoom
+			w = self.window_width * scalar / self.zoom
+			h = self.window_height * scalar / self.zoom
+
+			self.nav_preview_width = w
+			self.nav_preview_height = h
+
+			cr.rectangle(x1, y1, w, h)
+
+			'''cr.rectangle( \
+				-self.offset_x * scalar / self.zoom, \
+				-self.offset_y * scalar / self.zoom, \
+				self.window_width * scalar / self.zoom, \
+				self.window_height * scalar / self.zoom)'''
+			cr.set_source_rgba(1, 0.3, 0, 0.8)
+			cr.stroke()
 		cr.restore()
 
 	def draw(self, cr, width, height):
