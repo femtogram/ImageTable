@@ -24,6 +24,7 @@ import cairo
 import gtk
 import gobject
 from threading import Thread
+import sys
 
 import sched, time
 
@@ -46,9 +47,19 @@ class Screen(gtk.DrawingArea):
 		self.nav_preview_width = 1
 		self.nav_preview_height = 1
 
+		if len(sys.argv) > 0:
+			try:
+				self.open_image_from_file(sys.argv[1])
+			except:
+				'Invalid image file.  Please enter in the URI of the image.'
+
 		#self.s = sched.scheduler(time.time, time.sleep)
 		self.t = Thread(target=self.redraw)
 		self.t.start()
+
+	def open_image_from_file(self, uri):
+		print 'trying to open new image'
+		self.img = gtk.gdk.pixbuf_new_from_file(uri)
 
 	def redraw(self):
 		while self.loop_draw:
@@ -129,7 +140,7 @@ class Screen(gtk.DrawingArea):
 					mx >= self.window_width - self.trans and
 					mx <= self.window_width and
 					my >= 30 and
-					my <= self.nav_window_height
+					my <= self.nav_window_height + 30
 			)
 
 	def on_key_press(self, widget, event):
@@ -188,11 +199,6 @@ class Screen(gtk.DrawingArea):
 
 			cr.rectangle(x1, y1, w, h)
 
-			'''cr.rectangle( \
-				-self.offset_x * scalar / self.zoom, \
-				-self.offset_y * scalar / self.zoom, \
-				self.window_width * scalar / self.zoom, \
-				self.window_height * scalar / self.zoom)'''
 			cr.set_source_rgba(1, 0.3, 0, 0.8)
 			cr.stroke()
 		cr.restore()
