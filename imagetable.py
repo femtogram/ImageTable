@@ -234,6 +234,9 @@ def run(Widget):
 	window.connect('delete-event', gtk.main_quit)
 	widget = Widget()
 
+
+	window.set_title('ImageTable')
+	
 	window.connect('key_press_event', widget.on_key_press)
 	window.add_events(gtk.gdk.POINTER_MOTION_MASK | gtk.gdk.BUTTON_PRESS_MASK | gtk.gdk.BUTTON_RELEASE_MASK)
 	window.connect('button-press-event', widget.on_mouse_down)
