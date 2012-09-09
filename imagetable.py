@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Copyright Kota Weaver http://www.kotaweaver.com/ 2012
 '''
 
+import os
 import pygtk
 pygtk.require('2.0')
 import math
@@ -228,6 +229,9 @@ class Screen(gtk.DrawingArea):
 		self.t.join(0.05)
 		gtk.main_quit()
 
+def get_resource_path(rel_path):
+	return os.path.abspath(os.path.join(os.path.dirname(__file__), rel_path))
+
 def run(Widget):
 	gtk.gdk.threads_init()
 	window = gtk.Window()
@@ -236,6 +240,7 @@ def run(Widget):
 
 
 	window.set_title('ImageTable')
+	window.set_icon_from_file(get_resource_path('imagetable_icon_256x256.png'))
 	
 	window.connect('key_press_event', widget.on_key_press)
 	window.add_events(gtk.gdk.POINTER_MOTION_MASK | gtk.gdk.BUTTON_PRESS_MASK | gtk.gdk.BUTTON_RELEASE_MASK)
