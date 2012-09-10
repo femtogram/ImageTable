@@ -241,6 +241,7 @@ def run(Widget):
 
 	window.set_title('ImageTable')
 	window.set_icon_from_file(get_resource_path('imagetable_icon_256x256.png'))
+	window.set_default_size(640, 480)
 	
 	window.connect('key_press_event', widget.on_key_press)
 	window.add_events(gtk.gdk.POINTER_MOTION_MASK | gtk.gdk.BUTTON_PRESS_MASK | gtk.gdk.BUTTON_RELEASE_MASK)
