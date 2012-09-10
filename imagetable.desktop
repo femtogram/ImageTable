@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=ImageTable
+GenericName=ImageTable
+X-GNOME-FullName=ImageTable
+Comment=A modern image viewer
+Categories=GNOME;GTK;Graphics;Viewer;RasterGraphics;2DGraphics;Photography;
+Exec=python /home/kota/Projects/ImageTable/ImageTable/imagetable.py %U
+Icon=imagetable_icon_256x256.png
+MimeType=image/bmp;image/jpeg;image/gif;image/png;image/tiff;image/x-bmp;image/x-ico;image/x-png;image/x-pcx;image/x-tga;image/xpm;image/svg+xml;
+StartupNotify=true
+Terminal=false
+Type=Application
