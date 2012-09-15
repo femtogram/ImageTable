@@ -61,6 +61,7 @@ class Screen(gtk.DrawingArea):
 	def open_image_from_file(self, uri):
 		print 'trying to open new image'
 		self.img = gtk.gdk.pixbuf_new_from_file(uri)
+		self.center_image()
 
 	def redraw(self):
 		while self.loop_draw:
@@ -134,8 +135,6 @@ class Screen(gtk.DrawingArea):
 		if self.nav_mouse and hasattr(self, 'img'):
 			self.nav_offset(event)
 
-		#self.queue_draw()
-
 	def in_nav_window(self, mx, my):
 		return (
 					mx >= self.window_width - self.trans and
@@ -159,7 +158,23 @@ class Screen(gtk.DrawingArea):
 		if tmpimg != None:
 			print 'has image in clipboard'
 			self.img = tmpimg
-			#self.queue_draw()
+			self.center_image()
+
+	def center_image(self):
+		x_ratio = 1.0 * self.window_width / self.img.get_width()
+		y_ratio = 1.0 * self.window_height / self.img.get_height()
+
+		x_diff = self.window_width - y_ratio * self.img.get_width()
+		y_diff = self.window_height - x_ratio * self.img.get_height()
+
+		if x_diff < y_diff:
+			self.zoom = x_ratio
+			self.offset_x = 0
+			self.offset_y = (self.window_height - self.zoom * self.img.get_height()) / 2
+		else:
+			self.zoom = y_ratio
+			self.offset_x = (self.window_width - self.zoom * self.img.get_width()) / 2
+			self.offset_y = 0
 	
 	def draw_nav_window(self, cr, width, height):
 		border = 2
