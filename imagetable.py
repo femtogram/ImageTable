@@ -80,17 +80,17 @@ class Screen(gtk.DrawingArea):
 		self.draw(cr, *self.window.get_size())
 	
 	def on_mouse_down(self, widget, event):
-		print 'in nav?',self.in_nav_window(self.mouse_x, self.mouse_y)
-		print 'mouse_down?',self.mouse_down
-		if not self.mouse_down and self.in_nav_window(self.mouse_x, self.mouse_y):
-			self.nav_mouse = True
-			if hasattr(self, 'img'):
-				self.nav_offset(event)
-		else:
-			self.mouse_down = True
-
-		self.mouse_x = event.x
-		self.mouse_y = event.y
+		if event.button == 1:
+			self.mouse_x = event.x
+			self.mouse_y = event.y
+			if not self.mouse_down and self.in_nav_window(self.mouse_x, self.mouse_y):
+				self.nav_mouse = True
+				if hasattr(self, 'img'):
+					self.nav_offset(event)
+			else:
+				self.mouse_down = True
+			print 'in nav?',self.in_nav_window(self.mouse_x, self.mouse_y)
+			print 'mouse_down?',self.mouse_down
 
 	
 	def on_mouse_up(self, widget, event):
