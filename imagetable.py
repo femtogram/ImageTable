@@ -97,23 +97,28 @@ class Screen(gtk.DrawingArea):
 		self.mouse_down = False
 		self.nav_mouse = False
 
+	def zoom_in(self):
+		self.zoom_direction(False)
+
+	def zoom_out(self):
+		self.zoom_direction(True)
+
+	def zoom_direction(self, direction):
+		prev_zoom = self.zoom
+		self.zoom *= (0.9 if direction else 1.1)
+		s = self.zoom / prev_zoom
+		self.offset_x = self.mouse_x - s * (self.mouse_x - self.offset_x)
+		self.offset_y = self.mouse_y - s * (self.mouse_y - self.offset_y)
+
 	def on_scroll(self, widget, event):
 		if hasattr(self, 'img'):
-			prev_zoom = self.zoom
-			self.zoom *= (0.9 if event.direction else 1.1)
-			s = self.zoom / prev_zoom
-			self.offset_x = event.x - s * (event.x - self.offset_x)
-			self.offset_y = event.y - s * (event.y - self.offset_y)
+			self.zoom_direction(event.direction)
 
 	def nav_offset(self, mouse_event):
 		s = (self.zoom * self.img.get_width()) / 200
 		print self.nav_preview_width,self.nav_preview_height
 		self.offset_x = -(mouse_event.x - (self.window_width - 200 + self.nav_preview_width / 2)) * s
 		self.offset_y = -(mouse_event.y - 30 - self.nav_preview_height / 2) * s
-
-		#s = 1 / (200.0 / self.img.get_width()) # / self.zoom
-		#self.offset_x = -(mouse_event.x - (self.window_width - 100)) * s
-		#self.offset_y = -(mouse_event.y - 30 - self.nav_window_height / 2) * s
 
 	def on_mouse_move(self, widget, event):
 		if self.in_nav_window(event.x, event.y) or self.nav_mouse:
@@ -126,14 +131,14 @@ class Screen(gtk.DrawingArea):
 			delta_x = event.x - self.mouse_x
 			delta_y = event.y - self.mouse_y
 
-			self.mouse_x = event.x
-			self.mouse_y = event.y
-
 			self.offset_x += delta_x
 			self.offset_y += delta_y
 
 		if self.nav_mouse and hasattr(self, 'img'):
 			self.nav_offset(event)
+		
+		self.mouse_x = event.x
+		self.mouse_y = event.y
 
 	def in_nav_window(self, mx, my):
 		return (
@@ -145,11 +150,22 @@ class Screen(gtk.DrawingArea):
 
 	def on_key_press(self, widget, event):
 		keyname = gtk.gdk.keyval_name(event.keyval)
+		print(keyname, event.keyval)
 		if (
 				event.keyval == 80 or event.keyval == 112 or
 				event.keyval == 86 or event.keyval == 118
 			):
 			self.paste_image()
+		if (
+				event.keyval == ord('+') or event.keyval == ord('=') or
+				event.keyval == 65451
+			):
+			self.zoom_in()
+		if (
+				event.keyval == ord('-') or event.keyval == 65453
+			):
+			self.zoom_out()
+
 
 	def paste_image(self):
 		print 'paste image'
