@@ -7,6 +7,20 @@ Description
 A simple image viewer oriented toward artists who like to work with reference images.
 Note that it is nowhere near done right now, THIS PROJECT IS STILL A WORK IN PROGRESS!!
 
+Running
+-------
+
+For now, the way to run the program is to call
+```bash
+python imagetable.py
+```
+if Python is Python2 or
+```bash
+python2 imagetable.py
+```
+
+This will later be updated to allow for a more elegant way to run.
+
 License
 -------
 
