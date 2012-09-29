@@ -83,15 +83,14 @@ class Screen(gtk.DrawingArea):
 		if event.button == 1:
 			self.mouse_x = event.x
 			self.mouse_y = event.y
+			if event.type == gtk.gdk.2BUTTON_PRESS:
+				self.center_image()
 			if not self.mouse_down and self.in_nav_window(self.mouse_x, self.mouse_y):
 				self.nav_mouse = True
 				if hasattr(self, 'img'):
 					self.nav_offset(event)
 			else:
 				self.mouse_down = True
-			print 'in nav?',self.in_nav_window(self.mouse_x, self.mouse_y)
-			print 'mouse_down?',self.mouse_down
-
 	
 	def on_mouse_up(self, widget, event):
 		self.mouse_down = False
