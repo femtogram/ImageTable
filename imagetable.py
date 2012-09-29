@@ -26,6 +26,8 @@ import gtk
 import gobject
 from threading import Thread
 import sys
+import pango
+import pangocairo
 
 import sched, time
 
@@ -47,6 +49,7 @@ class Screen(gtk.DrawingArea):
 		self.nav_window_height = 200
 		self.nav_preview_width = 1
 		self.nav_preview_height = 1
+		self.color = '0x000000'
 
 		if len(sys.argv) > 0:
 			try:
@@ -80,10 +83,11 @@ class Screen(gtk.DrawingArea):
 		self.draw(cr, *self.window.get_size())
 	
 	def on_mouse_down(self, widget, event):
+		# check if left mouse button
 		if event.button == 1:
 			self.mouse_x = event.x
 			self.mouse_y = event.y
-			if event.type == gtk.gdk.2BUTTON_PRESS:
+			if event.type == gtk.gdk._2BUTTON_PRESS:
 				self.center_image()
 			if not self.mouse_down and self.in_nav_window(self.mouse_x, self.mouse_y):
 				self.nav_mouse = True
@@ -234,6 +238,35 @@ class Screen(gtk.DrawingArea):
 			cr.stroke()
 		cr.restore()
 
+	def draw_hex_color(self, cr, width, height):
+		if hasattr(self, 'img'):
+			cr.save()
+
+			cr.translate(0, height - 12)
+
+			cr.save()
+
+			cr.rectangle(0, 0, 56, 12)
+			cr.set_source_rgba(0.4, 0.4, 0.4, 0.8)
+			cr.fill()
+
+			cr.restore()
+
+			pangocairo_context = pangocairo.CairoContext(cr)
+			pangocairo_context.set_antialias(cairo.ANTIALIAS_SUBPIXEL);
+
+			layout = pangocairo_context.create_layout()
+
+			layout.set_font_description(pango.FontDescription('Courier 8'))
+			c = self.get_hex_color()
+			self.color = c if c else self.color
+			layout.set_text(self.color)
+			cr.set_source_rgba(1, 1, 1, 0.5)
+			pangocairo_context.update_layout(layout)
+			pangocairo_context.show_layout(layout)
+
+			cr.restore()
+
 	def draw(self, cr, width, height):
 		self.window_width = width
 		self.window_height = height
@@ -253,6 +286,24 @@ class Screen(gtk.DrawingArea):
 			cr.restore()
 
 		self.draw_nav_window(cr, width, height)
+
+		self.draw_hex_color(cr, width, height)
+
+	def get_hex_color(self):
+	    """Returns an (R, G, B) tuple at the current pointer location."""
+	    
+	    root_window = gtk.gdk.get_default_root_window()
+	    pointer_x, pointer_y = gtk.gdk.Display(None).get_pointer()[1:3]
+
+	    if self.get_display().get_window_at_pointer():
+	    	pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, 1, 1)
+    		pixbuf = pixbuf.get_from_drawable(root_window, root_window.get_colormap(), pointer_x, pointer_y, 0, 0, 1, 1)
+	    	tup = tuple(map(ord, pixbuf.get_pixels()[:3]))
+
+	    	res = '0x'
+	    	res += ''.join(['{0:0<2}'.format(hex(color)[2:]) for color in tup])
+	    	return res
+	    return None
 
 	def on_delete_event(self, event, widget):
 		self.loop_draw = False
