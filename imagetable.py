@@ -51,15 +51,17 @@ class Screen(gtk.DrawingArea):
 		self.nav_preview_height = 1
 		self.color = '0x000000'
 
+		self.window_width, self.window_height = [640, 480]
+		
 		if len(sys.argv) > 0:
 			try:
 				self.open_image_from_file(sys.argv[1])
 			except:
 				'Invalid image file.  Please enter in the URI of the image.'
 
-		#self.s = sched.scheduler(time.time, time.sleep)
 		self.t = Thread(target=self.redraw)
 		self.t.start()
+
 
 	def open_image_from_file(self, uri):
 		print 'trying to open new image'
