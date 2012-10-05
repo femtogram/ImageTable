@@ -28,6 +28,7 @@ from threading import Thread
 import sys
 import pango
 import pangocairo
+import urllib2
 
 import sched, time
 
@@ -74,6 +75,14 @@ class Screen(gtk.DrawingArea):
 			time.sleep(0.033)
 		#self.s.enter(0.033, 1, self.redraw, ())
 		#self.s.run()
+
+	def load_image_from_url(self, url):
+		response = urllib2.urlopen(url)
+		loader = gtk.gdk.PixbufLoader()
+		loader.write(response.read())
+		loader.close()
+		self.img = loader.get_pixbuf()
+		self.center_image()
 
 	def do_expose_event(self, event):
 		cr = self.window.cairo_create()
@@ -144,6 +153,16 @@ class Screen(gtk.DrawingArea):
 		
 		self.mouse_x = event.x
 		self.mouse_y = event.y
+
+	def on_drag_data_received(self, widget, context, x, y, selection, target_type, timestamp):
+		if target_type == 80:
+			uri = selection.data.strip('\r\n\x00')
+			print 'uri', uri
+			path = ''
+			if uri.startswith('file://'):
+				self.open_image_from_file(uri.strip('file:'))
+			if uri.startswith('http'):
+				self.load_image_from_url(uri)
 
 	def in_nav_window(self, mx, my):
 		return (
@@ -316,11 +335,16 @@ def get_resource_path(rel_path):
 	return os.path.abspath(os.path.join(os.path.dirname(__file__), rel_path))
 
 def run(Widget):
+	dnd_list = [ ( 'text/uri-list', 0, 80) ]
+
 	gtk.gdk.threads_init()
 	window = gtk.Window()
 	window.connect('delete-event', gtk.main_quit)
 	widget = Widget()
 
+	window.drag_dest_set(gtk.DEST_DEFAULT_MOTION | 
+				gtk.DEST_DEFAULT_HIGHLIGHT | gtk.DEST_DEFAULT_DROP,
+				dnd_list, gtk.gdk.ACTION_COPY)
 
 	window.set_title('ImageTable')
 	window.set_icon_from_file(get_resource_path('imagetable_icon_256x256.png'))
@@ -333,6 +357,7 @@ def run(Widget):
 	window.connect('motion-notify-event', widget.on_mouse_move)
 	window.connect('scroll-event', widget.on_scroll)
 	window.connect('delete-event', widget.on_delete_event)
+	window.connect('drag_data_received', widget.on_drag_data_received)
 
 	widget.show()
 	window.add(widget)
