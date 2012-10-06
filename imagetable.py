@@ -341,6 +341,7 @@ class ImWindow(gtk.Window):
 	def on_toggle_above(self):
 		self.keep_above = not self.keep_above
 		self.set_keep_above(self.keep_above)
+		self.set_title('ImageTable' if not self.keep_above else 'ImageTable (Always on Top)')
 
 	def on_key_press(self, widget, event):
 		keyname = gtk.gdk.keyval_name(event.keyval)
