@@ -285,7 +285,7 @@ class Screen(gtk.DrawingArea):
 			c = self.get_hex_color()
 			self.color = c if c else self.color
 			layout.set_text(self.color)
-			cr.set_source_rgba(1, 1, 1, 0.5)
+			cr.set_source_rgba(1, 1, 1, 0.8)
 			pangocairo_context.update_layout(layout)
 			pangocairo_context.show_layout(layout)
 
