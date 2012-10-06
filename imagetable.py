@@ -190,8 +190,6 @@ class Screen(gtk.DrawingArea):
 				event.keyval == ord('-') or event.keyval == 65453
 			):
 			self.zoom_out()
-		if event.keyval == ord('t') or event.keyval == ord('T'):
-			self.get_window().toggle_on_top()
 
 
 	def paste_image(self):
