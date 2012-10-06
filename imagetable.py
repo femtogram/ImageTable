@@ -161,7 +161,7 @@ class Screen(gtk.DrawingArea):
 			path = ''
 			if uri.startswith('file://'):
 				self.open_image_from_file(uri.strip('file:'))
-			if uri.startswith('http'):
+			elif uri.startswith('http'):
 				self.load_image_from_url(uri)
 
 	def in_nav_window(self, mx, my):
@@ -171,6 +171,7 @@ class Screen(gtk.DrawingArea):
 					my >= 30 and
 					my <= self.nav_window_height + 30
 			)
+
 
 	def on_key_press(self, widget, event):
 		keyname = gtk.gdk.keyval_name(event.keyval)
@@ -189,6 +190,8 @@ class Screen(gtk.DrawingArea):
 				event.keyval == ord('-') or event.keyval == 65453
 			):
 			self.zoom_out()
+		if event.keyval == ord('t') or event.keyval == ord('T'):
+			self.get_window().toggle_on_top()
 
 
 	def paste_image(self):
@@ -331,6 +334,23 @@ class Screen(gtk.DrawingArea):
 		self.t.join(0.05)
 		gtk.main_quit()
 
+class ImWindow(gtk.Window):
+	def __init__(self):
+		super(ImWindow, self).__init__()
+		self.keep_above = False
+
+	def on_toggle_above(self):
+		self.keep_above = not self.keep_above
+		self.set_keep_above(self.keep_above)
+
+	def on_key_press(self, widget, event):
+		keyname = gtk.gdk.keyval_name(event.keyval)
+		print(keyname, event.keyval)
+		if event.keyval == ord('t') or event.keyval == ord('T'):
+			self.on_toggle_above()
+		else:
+			self.get_children()[0].on_key_press(widget, event)
+
 def get_resource_path(rel_path):
 	return os.path.abspath(os.path.join(os.path.dirname(__file__), rel_path))
 
@@ -338,7 +358,7 @@ def run(Widget):
 	dnd_list = [ ( 'text/uri-list', 0, 80) ]
 
 	gtk.gdk.threads_init()
-	window = gtk.Window()
+	window = ImWindow()
 	window.connect('delete-event', gtk.main_quit)
 	widget = Widget()
 
@@ -350,7 +370,7 @@ def run(Widget):
 	window.set_icon_from_file(get_resource_path('imagetable_icon_256x256.png'))
 	window.set_default_size(640, 480)
 	
-	window.connect('key_press_event', widget.on_key_press)
+	window.connect('key_press_event', window.on_key_press)
 	window.add_events(gtk.gdk.POINTER_MOTION_MASK | gtk.gdk.BUTTON_PRESS_MASK | gtk.gdk.BUTTON_RELEASE_MASK)
 	window.connect('button-press-event', widget.on_mouse_down)
 	window.connect('button-release-event', widget.on_mouse_up)
@@ -362,6 +382,7 @@ def run(Widget):
 	widget.show()
 	window.add(widget)
 	window.present()
+	window.set_keep_above(True)
 	gtk.main()
 
 if __name__ == '__main__':
