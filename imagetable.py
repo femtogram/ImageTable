@@ -383,7 +383,6 @@ def run(Widget):
 	widget.show()
 	window.add(widget)
 	window.present()
-	window.set_keep_above(True)
 	gtk.main()
 
 if __name__ == '__main__':
