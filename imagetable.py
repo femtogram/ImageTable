@@ -317,7 +317,8 @@ class Screen(gtk.DrawingArea):
 	    """Returns an (R, G, B) tuple at the current pointer location."""
 	    
 	    root_window = gtk.gdk.get_default_root_window()
-	    pointer_x, pointer_y = gtk.gdk.Display(None).get_pointer()[1:3]
+	    disp = self.get_window().get_screen().get_display()
+	    pointer_x, pointer_y = disp.get_pointer()[1:3]
 
 	    if self.get_display().get_window_at_pointer():
 	    	pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, 1, 1)
