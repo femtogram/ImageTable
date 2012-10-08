@@ -46,7 +46,9 @@ class Screen(gtk.DrawingArea):
 		self.trans = 10;
 		self.loop_draw = True
 
-		self.nav_mouse = False
+		self.nav_expand = 0 # -1 means shrinking, 0 means static, 1 means expanding
+		self.nav_has_mouse = False # check to see if the mouse is over the nav window
+		self.nav_mouse = False # check to see if the mouse click is in nav window
 		self.nav_window_height = 200
 		self.nav_preview_width = 1
 		self.nav_preview_height = 1
@@ -136,10 +138,10 @@ class Screen(gtk.DrawingArea):
 
 	def on_mouse_move(self, widget, event):
 		if self.in_nav_window(event.x, event.y) or self.nav_mouse:
-			self.trans = 200
-		
+			self.nav_has_mouse = True
+
 		else:
-			self.trans = 10
+			self.nav_has_mouse = False
 
 		if self.mouse_down and hasattr(self, 'img'):
 			delta_x = event.x - self.mouse_x
@@ -222,6 +224,11 @@ class Screen(gtk.DrawingArea):
 		cr.save()
 		cr.translate(width - self.trans, 30)
 		cr.set_source_rgba(0.4, 0.4, 0.4, 0.8)
+		if self.nav_has_mouse and self.trans < 200:
+			self.trans = min(self.trans + 20, 200)
+		elif not self.nav_has_mouse and self.trans > 10:
+			self.trans = max(self.trans - 20, 10)
+
 		if not hasattr(self, 'img'):
 			self.nav_window_height = 200
 			cr.rectangle(-border, -border, 200 + border, 200 + border)
@@ -310,6 +317,8 @@ class Screen(gtk.DrawingArea):
 		self.draw_nav_window(cr, width, height)
 
 		self.draw_hex_color(cr, width, height)
+
+		print self.get_window().get_pointer()
 
 	def get_hex_color(self):
 	    """Returns an (R, G, B) tuple at the current pointer location."""
