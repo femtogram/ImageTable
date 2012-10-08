@@ -46,6 +46,12 @@ class Screen(gtk.DrawingArea):
 		self.trans = 10;
 		self.loop_draw = True
 
+		self.help_on = False
+		self.help_circle_x = 3
+		self.help_circle_y = -5
+		self.help_circle_radius = 20
+		self.help_has_mouse = False
+
 		self.nav_expand = 0 # -1 means shrinking, 0 means static, 1 means expanding
 		self.nav_has_mouse = False # check to see if the mouse is over the nav window
 		self.nav_mouse = False # check to see if the mouse click is in nav window
@@ -94,13 +100,13 @@ class Screen(gtk.DrawingArea):
 		cr.clip()
 
 		self.draw(cr, *self.window.get_size())
-	
+
 	def on_mouse_down(self, widget, event):
 		# check if left mouse button
 		if event.button == 1:
 			self.mouse_x = event.x
 			self.mouse_y = event.y
-			if event.type == gtk.gdk._2BUTTON_PRESS:
+			if event.type == gtk.gdk._2BUTTON_PRESS and hasattr(self, 'img'):
 				self.center_image()
 			if not self.mouse_down and self.in_nav_window(self.mouse_x, self.mouse_y):
 				self.nav_mouse = True
@@ -139,9 +145,13 @@ class Screen(gtk.DrawingArea):
 	def on_mouse_move(self, widget, event):
 		if self.in_nav_window(event.x, event.y) or self.nav_mouse:
 			self.nav_has_mouse = True
-
 		else:
 			self.nav_has_mouse = False
+
+		if self.in_help_icon(event.x, event.y):
+			self.help_has_mouse = True
+		else:
+			self.help_has_mouse = False
 
 		if self.mouse_down and hasattr(self, 'img'):
 			delta_x = event.x - self.mouse_x
@@ -174,6 +184,18 @@ class Screen(gtk.DrawingArea):
 					my <= self.nav_window_height + 30
 			)
 
+	def in_help_icon(self, mx, my):
+		x_diff_sq = mx - self.help_circle_x
+		x_diff_sq *= x_diff_sq
+		y_diff_sq = my - self.help_circle_y
+		y_diff_sq *= y_diff_sq
+		rad_sq = self.help_circle_radius * self.help_circle_radius
+
+		return (
+					mx >= 0 and
+					my >= 0 and
+					x_diff_sq + y_diff_sq <= rad_sq
+			)
 
 	def on_key_press(self, widget, event):
 		keyname = gtk.gdk.keyval_name(event.keyval)
@@ -217,6 +239,54 @@ class Screen(gtk.DrawingArea):
 			self.zoom = y_ratio
 			self.offset_x = (self.window_width - self.zoom * self.img.get_width()) / 2
 			self.offset_y = 0
+
+	def draw_help_icon(self, cr, width, height):
+		cr.save()
+
+		if self.help_has_mouse:
+			self.help_circle_x = min(self.help_circle_x + 5, 17)
+			self.help_circle_y = min(self.help_circle_y + 5, 17)
+		else:
+			self.help_circle_x = max(self.help_circle_x - 5, 3)
+			self.help_circle_y = max(self.help_circle_y - 5, -5)
+		cr.translate(self.help_circle_x, self.help_circle_y)
+		cr.rotate(0.3)
+		cr.set_source_rgba(0.4, 0.4, 0.4, 0.8)
+		cr.arc(0, 0, self.help_circle_radius, 0, 2 * math.pi)
+		cr.fill()
+		cr.save() # for text
+		pangocairo_context = pangocairo.CairoContext(cr)
+		pangocairo_context.set_antialias(cairo.ANTIALIAS_SUBPIXEL);
+		
+		layout = pangocairo_context.create_layout()
+
+		layout.set_font_description(pango.FontDescription('Sans 30'))
+		layout.set_text('?')
+		layout.set_alignment(pango.ALIGN_CENTER)
+		cr.set_source_rgba(1, 1, 1, 0.4)
+		t_width, t_height = layout.get_pixel_size()
+		cr.translate(-t_width / 2, -t_height / 2)
+		pangocairo_context.update_layout(layout)
+		pangocairo_context.show_layout(layout)
+
+		cr.restore() # for text
+		cr.restore()
+
+		if self.help_on:
+			self.draw_help_window(cr, width, height)
+
+	def draw_help_text(self, cr, width, height, text_width, y_pos):
+		cr.save()
+		
+		cr.restore()
+
+	def draw_help_window(self, cr, width, height):
+		cr.save()
+		cr.translate(width / 2, 0)
+		cr.set_source_rgba(0.4, 0.4, 0.4, 0.8)
+		cr.rectangle(-100, 0, 200, height)
+		cr.fill()
+		cr.restore()
 	
 	def draw_nav_window(self, cr, width, height):
 		border = 2
@@ -281,7 +351,7 @@ class Screen(gtk.DrawingArea):
 			cr.restore()
 
 			pangocairo_context = pangocairo.CairoContext(cr)
-			pangocairo_context.set_antialias(cairo.ANTIALIAS_SUBPIXEL);
+			pangocairo_context.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
 
 			layout = pangocairo_context.create_layout()
 
@@ -316,6 +386,8 @@ class Screen(gtk.DrawingArea):
 		self.draw_nav_window(cr, width, height)
 
 		self.draw_hex_color(cr, width, height)
+
+		self.draw_help_icon(cr, width, height)
 
 	def get_hex_color(self):
 	    """Returns an (R, G, B) tuple at the current pointer location."""
