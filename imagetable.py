@@ -177,7 +177,6 @@ class Screen(gtk.DrawingArea):
 
 	def on_key_press(self, widget, event):
 		keyname = gtk.gdk.keyval_name(event.keyval)
-		print(keyname, event.keyval)
 		if (
 				event.keyval == 80 or event.keyval == 112 or
 				event.keyval == 86 or event.keyval == 118
@@ -225,9 +224,9 @@ class Screen(gtk.DrawingArea):
 		cr.translate(width - self.trans, 30)
 		cr.set_source_rgba(0.4, 0.4, 0.4, 0.8)
 		if self.nav_has_mouse and self.trans < 200:
-			self.trans = min(self.trans + 20, 200)
+			self.trans = min(self.trans + 40, 200)
 		elif not self.nav_has_mouse and self.trans > 10:
-			self.trans = max(self.trans - 20, 10)
+			self.trans = max(self.trans - 40, 10)
 
 		if not hasattr(self, 'img'):
 			self.nav_window_height = 200
@@ -317,8 +316,6 @@ class Screen(gtk.DrawingArea):
 		self.draw_nav_window(cr, width, height)
 
 		self.draw_hex_color(cr, width, height)
-
-		print self.get_window().get_pointer()
 
 	def get_hex_color(self):
 	    """Returns an (R, G, B) tuple at the current pointer location."""
