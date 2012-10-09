@@ -51,7 +51,8 @@ class Screen(gtk.DrawingArea):
 		self.help_circle_y = -5
 		self.help_circle_radius = 20
 		self.help_has_mouse = False
-		self.help = (('Paste image into viewer', 'p,ctrl-v'),
+		self.help = (('Help', 'h,/,?'),
+		('Paste image into viewer', 'p,ctrl-v'),
 		('Toggle window on top', 't'),
 		('Zoom in', '+,='),
 		('Zoom out', '-'))
@@ -207,6 +208,11 @@ class Screen(gtk.DrawingArea):
 
 	def on_key_press(self, widget, event):
 		keyname = gtk.gdk.keyval_name(event.keyval)
+		if (
+				event.keyval == ord('/') or event.keyval == ord('?') or
+				event.keyval == ord('h') or event.keyval == ord('H')
+			):
+			self.help_on = not self.help_on
 		if (
 				event.keyval == 80 or event.keyval == 112 or
 				event.keyval == 86 or event.keyval == 118
