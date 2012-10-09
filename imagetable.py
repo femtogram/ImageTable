@@ -51,6 +51,11 @@ class Screen(gtk.DrawingArea):
 		self.help_circle_y = -5
 		self.help_circle_radius = 20
 		self.help_has_mouse = False
+		self.help = (('Paste image into viewer', 'p,ctrl-v'),
+		('Toggle window on top', 't'),
+		('Zoom in', '+,='),
+		('Zoom out', '-'))
+
 
 		self.nav_expand = 0 # -1 means shrinking, 0 means static, 1 means expanding
 		self.nav_has_mouse = False # check to see if the mouse is over the nav window
@@ -106,14 +111,17 @@ class Screen(gtk.DrawingArea):
 		if event.button == 1:
 			self.mouse_x = event.x
 			self.mouse_y = event.y
-			if event.type == gtk.gdk._2BUTTON_PRESS and hasattr(self, 'img'):
+			if event.type == gtk.gdk._2BUTTON_PRESS and not self.help_on and not self.help_has_mouse and hasattr(self, 'img'):
 				self.center_image()
-			if not self.mouse_down and self.in_nav_window(self.mouse_x, self.mouse_y):
+			if not self.mouse_down and self.in_nav_window(self.mouse_x, self.mouse_y) and not self.help_on:
 				self.nav_mouse = True
 				if hasattr(self, 'img'):
 					self.nav_offset(event)
 			else:
 				self.mouse_down = True
+
+			if self.help_has_mouse:
+				self.help_on = not self.help_on
 	
 	def on_mouse_up(self, widget, event):
 		self.mouse_down = False
@@ -243,7 +251,7 @@ class Screen(gtk.DrawingArea):
 	def draw_help_icon(self, cr, width, height):
 		cr.save()
 
-		if self.help_has_mouse:
+		if self.help_has_mouse or self.help_on:
 			self.help_circle_x = min(self.help_circle_x + 5, 17)
 			self.help_circle_y = min(self.help_circle_y + 5, 17)
 		else:
@@ -256,7 +264,7 @@ class Screen(gtk.DrawingArea):
 		cr.fill()
 		cr.save() # for text
 		pangocairo_context = pangocairo.CairoContext(cr)
-		pangocairo_context.set_antialias(cairo.ANTIALIAS_SUBPIXEL);
+		pangocairo_context.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
 		
 		layout = pangocairo_context.create_layout()
 
@@ -275,18 +283,47 @@ class Screen(gtk.DrawingArea):
 		if self.help_on:
 			self.draw_help_window(cr, width, height)
 
-	def draw_help_text(self, cr, width, height, text_width, y_pos):
+	def draw_help_text(self, cr, width, height, x_center, y, text_width, y_pos, help_item):
 		cr.save()
-		
+
+		pangocairo_context = pangocairo.CairoContext(cr)
+		pangocairo_context.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
+
+		layout = pangocairo_context.create_layout()
+
+		layout.set_font_description(pango.FontDescription('Sans 10'))
+		layout.set_text(help_item[0])
+		cr.translate(x_center - text_width / 2, y + y_pos * 20)
+		cr.set_source_rgba(1, 1, 1, 0.8)
+		pangocairo_context.update_layout(layout)
+		pangocairo_context.show_layout(layout)
+
+		cr.restore()
+
+		cr.save()
+		pangocairo_context = pangocairo.CairoContext(cr)
+		pangocairo_context.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
+
+		layout = pangocairo_context.create_layout()
+
+		layout.set_font_description(pango.FontDescription('Sans 10'))
+		layout.set_text(help_item[1])
+		layout.set_alignment(pango.ALIGN_RIGHT)
+		cr.translate(x_center + text_width / 2 - layout.get_pixel_size()[0], y + y_pos * 20)
+		cr.set_source_rgba(1, 1, 1, 0.8)
+		pangocairo_context.update_layout(layout)
+		pangocairo_context.show_layout(layout)
 		cr.restore()
 
 	def draw_help_window(self, cr, width, height):
 		cr.save()
 		cr.translate(width / 2, 0)
 		cr.set_source_rgba(0.4, 0.4, 0.4, 0.8)
-		cr.rectangle(-100, 0, 200, height)
+		cr.rectangle(-150, 0, 300, height)
 		cr.fill()
 		cr.restore()
+		for i, val in enumerate(self.help):
+			self.draw_help_text(cr, width, height, width / 2, 5, 280, i, val)
 	
 	def draw_nav_window(self, cr, width, height):
 		border = 2
