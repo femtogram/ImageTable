@@ -227,7 +227,8 @@ class Screen(gtk.DrawingArea):
 				event.keyval == ord('-') or event.keyval == 65453
 			):
 			self.zoom_out()
-
+		if (event.keyval == 65307):  # Escape key pressed
+			self.delete()
 
 	def paste_image(self):
 		print 'paste image'
@@ -450,6 +451,9 @@ class Screen(gtk.DrawingArea):
 	    return None
 
 	def on_delete_event(self, event, widget):
+		self.delete()
+
+	def delete(self):
 		self.loop_draw = False
 		self.t.join(0.05)
 		gtk.main_quit()
@@ -480,7 +484,6 @@ def run(Widget):
 
 	gtk.gdk.threads_init()
 	window = ImWindow()
-	window.connect('delete-event', gtk.main_quit)
 	widget = Widget()
 
 	window.drag_dest_set(gtk.DEST_DEFAULT_MOTION | 
