@@ -75,6 +75,7 @@ class Screen(gtk.DrawingArea):
 				'Invalid image file.  Please enter in the URI of the image.'
 
 		self.t = Thread(target=self.redraw)
+		self.t.setDaemon(True)
 		self.t.start()
 
 
@@ -84,7 +85,7 @@ class Screen(gtk.DrawingArea):
 		self.center_image()
 
 	def redraw(self):
-		while self.loop_draw:
+		while True:
 			self.queue_draw()
 			time.sleep(0.033)
 		#self.s.enter(0.033, 1, self.redraw, ())
