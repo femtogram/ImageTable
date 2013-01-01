@@ -1,0 +1,879 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"lo",
+				"LOGO"
+			],
+			[
+				"window",
+				"window_border"
+			],
+			[
+				"help",
+				"help_on"
+			],
+			[
+				"min",
+				"min_trans"
+			],
+			[
+				"mou",
+				"check_mouse_over"
+			],
+			[
+				"mi",
+				"min_pos"
+			],
+			[
+				"owner",
+				"ownerstr"
+			],
+			[
+				"own",
+				"ownerstr"
+			],
+			[
+				"diff",
+				"diff_y_sq"
+			],
+			[
+				"mous",
+				"mouse_y"
+			],
+			[
+				"hel",
+				"help_on"
+			],
+			[
+				"drawa",
+				"drawables"
+			],
+			[
+				"screen",
+				"screen_height"
+			],
+			[
+				"main",
+				"mainimage"
+			],
+			[
+				"scre",
+				"screen_height"
+			],
+			[
+				"scr",
+				"screen_height"
+			],
+			[
+				"screen_h",
+				"screen_height"
+			],
+			[
+				"scree",
+				"screen_width"
+			],
+			[
+				"get_",
+				"get_height"
+			],
+			[
+				"uri",
+				"load_from_uri"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "drawables/backgroundtext.py",
+			"settings":
+			{
+				"buffer_size": 1099,
+				"line_ending": "Unix",
+				"name": "def draw(cr, width, height):"
+			}
+		},
+		{
+			"file": "drawables/mainimage.py",
+			"settings":
+			{
+				"buffer_size": 2246,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "main.py",
+			"settings":
+			{
+				"buffer_size": 3905,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test_convert_pixbuf_to_cairo_surface.py",
+			"settings":
+			{
+				"buffer_size": 249,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "drawables/mainbackground.py",
+			"settings":
+			{
+				"buffer_size": 214,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "drawables/helpicon.py",
+			"settings":
+			{
+				"buffer_size": 1577,
+				"line_ending": "Unix",
+				"name": "needs_update = False"
+			}
+		},
+		{
+			"file": "drawables/helpwindow.py",
+			"settings":
+			{
+				"buffer_size": 1320,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "drawables/navigator.py",
+			"settings":
+			{
+				"buffer_size": 2402,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "drawables/__init__.py",
+			"settings":
+			{
+				"buffer_size": 311,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "inputmanager.py",
+			"settings":
+			{
+				"buffer_size": 3163,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "imageloader.py",
+			"settings":
+			{
+				"buffer_size": 3981,
+				"line_ending": "Unix",
+				"name": "import urllib2"
+			}
+		},
+		{
+			"contents": "things to do:\n	-moving around the image\n	-zooming\n	-nav window\n	multiimage stuff, in particular, the window, making sure only to store images from the clipboard in tmp, loading multiple images from drag and drop, loading multiple images from args, etc.\n	fix bugs!!\n	-help icon\n	help window, set wrap and such for description.",
+			"settings":
+			{
+				"buffer_size": 325,
+				"line_ending": "Unix",
+				"name": "things to do:"
+			}
+		},
+		{
+			"file": "utilities/text.py",
+			"settings":
+			{
+				"buffer_size": 1345,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/kota/mint/kota/Projects/ImageTable/ImageTable/imagetable.py",
+			"settings":
+			{
+				"buffer_size": 14831,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "parsearguments.py",
+			"settings":
+			{
+				"buffer_size": 352,
+				"line_ending": "Unix",
+				"name": "import argparse"
+			}
+		}
+	],
+	"build_system": "Run",
+	"command_palette":
+	{
+		"height": 180.0,
+		"selected_items":
+		[
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/kota/.config/sublime-text-2/Packages/User/Python.sublime-settings",
+		"/home/kota/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
+		"/home/kota/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
+		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/utilities/__init__.py",
+		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/imagetable.sublime-project",
+		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/imagetable.py",
+		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/image.py",
+		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/mainbackground.py",
+		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/drawables/__init__.py",
+		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/imagetable.sublime-workspace",
+		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/draw.py",
+		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/steps.py",
+		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/navwindow.py",
+		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/imwindow.py",
+		"/home/kota/mint/kota/workspace/TestBluetooth/src/com/example/testbluetooth/MainActivity.java",
+		"/home/kota/testbluetooth.py",
+		"/home/kota/Dropbox/IED Team Project/sensorband/sensorband.ino"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"todo",
+			"store_image",
+			"global image",
+			"load_from_uri",
+			"_load_image",
+			"_draw_font",
+			"window_border",
+			"main",
+			"help_border",
+			"help_window",
+			"on_delete_event",
+			"nav_offset",
+			"nav_has_mo",
+			"on_mouse_move",
+			"check_mouse_over",
+			"drag_data_rec",
+			"on_mouse_down",
+			"help_icon",
+			"event.direction",
+			"zoom_in(",
+			"zoom(",
+			"zoom",
+			"scale",
+			"offset_x",
+			"mouse",
+			"offset",
+			"prev",
+			"width",
+			"mainback",
+			"640",
+			"center",
+			"640",
+			"def draw",
+			"cr =",
+			"center_image",
+			"_load_image",
+			"AttributeError",
+			"thread",
+			"draw",
+			"center",
+			"on_mouse_move",
+			"layout.set_font",
+			"cairo",
+			"pycair",
+			"text",
+			"print",
+			"draw",
+			"queue",
+			"self.queue_draw",
+			"draw",
+			"queue_draw",
+			"redraw",
+			"queue_draw",
+			"draw(",
+			"queue_draw",
+			"redraw",
+			"expose",
+			"do_expose_event",
+			"draw(",
+			"queue_draw(",
+			"queue_draw",
+			"self.draw(",
+			"draw",
+			"queue_draw",
+			"draw",
+			"on_scroll",
+			"on_mo",
+			"delete",
+			"bluetoothdevice",
+			"bluetoothadapter",
+			"bluetoothdevice",
+			"mReceiver"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "drawables/backgroundtext.py",
+					"settings":
+					{
+						"buffer_size": 1099,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								949,
+								949
+							]
+						],
+						"settings":
+						{
+							"auto_name": "def draw(cr, width, height):",
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 269.0,
+						"translation.y": 216.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "drawables/mainimage.py",
+					"settings":
+					{
+						"buffer_size": 2246,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1162,
+								1162
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 972.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "main.py",
+					"settings":
+					{
+						"buffer_size": 3905,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1745,
+								1745
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 72.0,
+						"translation.y": 1126.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "test_convert_pixbuf_to_cairo_surface.py",
+					"settings":
+					{
+						"buffer_size": 249,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "drawables/mainbackground.py",
+					"settings":
+					{
+						"buffer_size": 214,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								214,
+								214
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "drawables/helpicon.py",
+					"settings":
+					{
+						"buffer_size": 1577,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1356,
+								1356
+							]
+						],
+						"settings":
+						{
+							"auto_name": "needs_update = False",
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 864.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "drawables/helpwindow.py",
+					"settings":
+					{
+						"buffer_size": 1320,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								949,
+								949
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 378.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "drawables/navigator.py",
+					"settings":
+					{
+						"buffer_size": 2402,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2083,
+								2083
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1296.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 8,
+					"file": "drawables/__init__.py",
+					"settings":
+					{
+						"buffer_size": 311,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								112,
+								112
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "inputmanager.py",
+					"settings":
+					{
+						"buffer_size": 3163,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1185,
+								1185
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "imageloader.py",
+					"settings":
+					{
+						"buffer_size": 3981,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								877,
+								877
+							]
+						],
+						"settings":
+						{
+							"auto_name": "import urllib2",
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 47.0,
+						"translation.y": 540.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"settings":
+					{
+						"buffer_size": 325,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								252,
+								252
+							]
+						],
+						"settings":
+						{
+							"auto_name": "things to do:",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "utilities/text.py",
+					"settings":
+					{
+						"buffer_size": 1345,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								500,
+								500
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "/home/kota/mint/kota/Projects/ImageTable/ImageTable/imagetable.py",
+					"settings":
+					{
+						"buffer_size": 14831,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9287,
+								9287
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3271.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "parsearguments.py",
+					"settings":
+					{
+						"buffer_size": 352,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								352,
+								352
+							]
+						],
+						"settings":
+						{
+							"auto_name": "import argparse",
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.483493810179,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 99.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"helpwin",
+				"drawables/helpwindow.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 146.0,
+	"status_bar_visible": true
+}

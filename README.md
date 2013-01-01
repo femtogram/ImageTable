@@ -7,16 +7,21 @@ Description
 A simple image viewer oriented toward artists who like to work with reference images.
 Note that it is nowhere near done right now, THIS PROJECT IS STILL A WORK IN PROGRESS!!
 
+Dependencies
+-------
+
+ImageTable requires Pango, Cairo, PyCairo, PyGTK, and Python 2.6 or 2.7. A more complete list will be compiled at a later time.
+
 Running
 -------
 
 For now, the way to run the program is to call
 ```bash
-python imagetable.py
+python src/main.py
 ```
 if Python is Python2 or
 ```bash
-python2 imagetable.py
+python2 src/main.py
 ```
 
 This will later be updated to allow for a more elegant way to run.

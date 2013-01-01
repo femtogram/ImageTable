@@ -1,0 +1,15 @@
+{
+	"folders":
+	[
+		{
+			"path": "/home/kota/mint/kota/Projects/ImageTable/ImageTable/src"
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name": "Run",
+			"cmd": ["python", "/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/main.py"]
+		}
+	]
+}
