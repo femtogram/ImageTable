@@ -20,7 +20,9 @@ Drag and drop an image file in here.
 
 You can also paste an image or url of an image in the clipboard with 'v' or 'p'.
 
-Use 't' to keep the window always on top."""
+Use 't' to keep the window always on top.
+
+The 'c' key can be used to display the hex color under the cursor on the image."""
 
 def draw(cr, width, height):
 	global needs_update
