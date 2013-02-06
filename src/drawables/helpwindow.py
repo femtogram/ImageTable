@@ -17,6 +17,7 @@ help = (('<Action>', '<shortcut>'),
 		('Help', 'h,/,?'),
 		('Paste image into viewer', 'p,ctrl-v'),
 		('Toggle window on top', 't'),
+		('Display hex color at cursor','c'),
 		('Zoom in', '+,='),
 		('Zoom out', '-'))
 
