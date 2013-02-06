@@ -11,7 +11,7 @@ from utilities import text
 needs_update = False
 print os.path.dirname(os.path.realpath(imageloader.__file__))
 print type(os.path.dirname(os.path.realpath(imageloader.__file__)))
-LOGO = gtk.gdk.pixbuf_new_from_file(''.join((os.path.dirname(os.path.realpath(imageloader.__file__)), os.sep, 'logo_white.png')))
+LOGO = gtk.gdk.pixbuf_new_from_file(os.path.join(os.path.dirname(os.path.realpath(imageloader.__file__)), 'logo_white.png'))
 
 BACKGROUNDTEXT = \
 """ImageTable is a new take on the classic image viewer.

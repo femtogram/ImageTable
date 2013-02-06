@@ -91,7 +91,7 @@
 			"file": "drawables/backgroundtext.py",
 			"settings":
 			{
-				"buffer_size": 1099,
+				"buffer_size": 1094,
 				"line_ending": "Unix",
 				"name": "def draw(cr, width, height):"
 			}
@@ -154,31 +154,6 @@
 			}
 		},
 		{
-			"file": "drawables/__init__.py",
-			"settings":
-			{
-				"buffer_size": 311,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "inputmanager.py",
-			"settings":
-			{
-				"buffer_size": 3163,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "imageloader.py",
-			"settings":
-			{
-				"buffer_size": 3981,
-				"line_ending": "Unix",
-				"name": "import urllib2"
-			}
-		},
-		{
 			"contents": "things to do:\n	-moving around the image\n	-zooming\n	-nav window\n	multiimage stuff, in particular, the window, making sure only to store images from the clipboard in tmp, loading multiple images from drag and drop, loading multiple images from args, etc.\n	fix bugs!!\n	-help icon\n	help window, set wrap and such for description.",
 			"settings":
 			{
@@ -192,14 +167,6 @@
 			"settings":
 			{
 				"buffer_size": 1345,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/kota/mint/kota/Projects/ImageTable/ImageTable/imagetable.py",
-			"settings":
-			{
-				"buffer_size": 14831,
 				"line_ending": "Unix"
 			}
 		},
@@ -261,12 +228,18 @@
 	},
 	"file_history":
 	[
+		"/home/kota/Projects/ImageTable/src/imageloader.py",
+		"/home/kota/Projects/ImageTable/src/drawables/__init__.py",
+		"/home/kota/Projects/ImageTable/src/inputmanager.py",
+		"/home/kota/.vimrc",
+		"/home/kota/Projects/ImageTable/src/imagetable.sublime-project",
+		"/home/kota/Projects/ImageTable/src/imagetable.sublime-workspace",
+		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/imagetable.py",
 		"/home/kota/.config/sublime-text-2/Packages/User/Python.sublime-settings",
 		"/home/kota/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
 		"/home/kota/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
 		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/utilities/__init__.py",
 		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/imagetable.sublime-project",
-		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/imagetable.py",
 		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/image.py",
 		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/mainbackground.py",
 		"/home/kota/mint/kota/Projects/ImageTable/ImageTable/src/drawables/__init__.py",
@@ -384,7 +357,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -392,15 +365,15 @@
 					"file": "drawables/backgroundtext.py",
 					"settings":
 					{
-						"buffer_size": 1099,
+						"buffer_size": 1094,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								949,
-								949
+								768,
+								768
 							]
 						],
 						"settings":
@@ -409,8 +382,8 @@
 							"syntax": "Packages/Python/Python.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 269.0,
-						"translation.y": 216.0,
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -455,8 +428,8 @@
 						"selection":
 						[
 							[
-								1745,
-								1745
+								1214,
+								1214
 							]
 						],
 						"settings":
@@ -464,8 +437,8 @@
 							"syntax": "Packages/Python/Python.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 72.0,
-						"translation.y": 1126.0,
+						"translation.x": 0.0,
+						"translation.y": 714.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -608,93 +581,11 @@
 			]
 		},
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 8,
-					"file": "drawables/__init__.py",
-					"settings":
-					{
-						"buffer_size": 311,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								112,
-								112
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "inputmanager.py",
-					"settings":
-					{
-						"buffer_size": 3163,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1185,
-								1185
-							]
-						],
-						"settings":
-						{
-							"auto_name": "",
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "imageloader.py",
-					"settings":
-					{
-						"buffer_size": 3981,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								877,
-								877
-							]
-						],
-						"settings":
-						{
-							"auto_name": "import urllib2",
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 47.0,
-						"translation.y": 540.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 11,
 					"settings":
 					{
 						"buffer_size": 325,
@@ -720,7 +611,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 9,
 					"file": "utilities/text.py",
 					"settings":
 					{
@@ -747,34 +638,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 13,
-					"file": "/home/kota/mint/kota/Projects/ImageTable/ImageTable/imagetable.py",
-					"settings":
-					{
-						"buffer_size": 14831,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9287,
-								9287
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3271.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 14,
+					"buffer": 10,
 					"file": "parsearguments.py",
 					"settings":
 					{

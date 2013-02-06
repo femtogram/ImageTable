@@ -4,6 +4,7 @@ import imageloader
 from drawables import mainimage
 from drawables import helpicon
 from drawables import navigator
+from drawables import hexcolor
 import drawables
 
 down = False
@@ -42,15 +43,17 @@ def on_key_press(widget, event):
 		widget.on_destroy()
 	if keyname.lower() == 't':
 		widget.on_toggle_above()
+	if keyname.lower() == 'c':
+		hexcolor.sethexcolor()
 	if keyname.lower() == 'p' or keyname.lower() == 'v':
 		imageloader.load_from_clipboard()
 	if event.keyval == gtk.keysyms.Right:
 		imageloader.next_img()
 	if event.keyval == gtk.keysyms.Left:
 		imageloader.prev_img()
-	if keyname == 'plus' or keyname == 'equal':
+	if keyname == 'plus' or keyname == 'equal' or keyname == 'KP_Add':
 		mainimage.zoom_in()
-	if keyname == 'minus':
+	if keyname == 'minus' or keyname == 'KP_Subtract':
 		mainimage.zoom_out()
 	if keyname.lower() == 'h' or event.keyval == gtk.keysyms.slash or \
 	   event.keyval == gtk.keysyms.question:

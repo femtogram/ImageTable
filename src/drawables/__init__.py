@@ -5,6 +5,7 @@ import imageloader
 import helpicon
 import navigator
 import helpwindow
+import hexcolor
 
 all = list()
 
@@ -15,3 +16,4 @@ all.append(imageloader)
 all.append(navigator)
 all.append(helpicon)
 all.append(helpwindow)
+all.append(hexcolor)
