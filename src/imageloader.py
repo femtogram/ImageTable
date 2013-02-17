@@ -16,7 +16,7 @@ directory = tempfile.mkdtemp(prefix='imgtable_')
 
 def draw(cr, width, height):
 	'''
-	shouldn't drwa anything.  this is used to be able to specify
+	shouldn't draw anything.  this is used to be able to specify
 	redrawing the window from within this module.
 	'''
 	pass
