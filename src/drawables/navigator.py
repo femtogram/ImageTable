@@ -29,6 +29,7 @@ def draw(cr, width, height):
 		try:
 			print 'trans', trans
 			max_trans = imageloader.imglist[imageloader.index].preview.get_width()
+			nav_height = imageloader.imglist[imageloader.index].preview.get_height()
 
 			if inputmanager.owner == ownerstr:
 				trans = min(trans + 40, max_trans)
@@ -37,7 +38,6 @@ def draw(cr, width, height):
 
 
 
-			cr.save()
 			cr.translate(width - trans, 30)
 			cr.set_source_rgba(0.4, 0.4, 0.4, 0.8)
 
@@ -68,7 +68,6 @@ def draw(cr, width, height):
 			cr.stroke()
 
 			#print 'x1, y1, w, h', x1, y1, w, h
-			cr.restore()
 
 			print 'trans, max_trans', trans,max_trans
 
@@ -82,7 +81,7 @@ def draw(cr, width, height):
 		except (AttributeError):
 			pass
 
-def check_mouse_over(event):
+def check_mouse_over(widget, event):
 	global needs_update
 
 	if event.x > event.window.get_size()[0] - trans - border and \

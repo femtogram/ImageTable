@@ -22,6 +22,8 @@ import drawables
 from drawables import mainbackground
 from drawables import backgroundtext
 from drawables import mainimage
+from drawables import imagemanager
+
 
 screen = None
 window = None
@@ -69,7 +71,15 @@ class Screen(gtk.DrawingArea):
 	def draw(self, cr, width, height):
 		print 'redrawing'
 		for i in drawables.all:
-			i.draw(cr, width, height)
+			tmpheight = height
+			cr.save()
+			if not hasattr(i, 'fullwindow') and imagemanager.should_draw():
+				tmpheight = height - imagemanager.winheight
+				print 'newheight', height
+				cr.rectangle(0, 0, width, tmpheight)
+				cr.clip()
+			i.draw(cr, width, tmpheight)
+			cr.restore()
 
 	def on_delete_event(self, widget, event):
 		widget.on_destroy()

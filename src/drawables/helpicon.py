@@ -19,8 +19,6 @@ ownerstr = 'help'
 def draw(cr, width, height):
 	global needs_update
 
-	cr.save()
-
 	if inputmanager.owner == ownerstr or help_on:
 		pos[0] = min(pos[0] + 5, max_pos[0])
 		pos[1] = min(pos[1] + 5, max_pos[1])
@@ -50,14 +48,13 @@ def draw(cr, width, height):
 	pc.show_layout(layout)
 
 	cr.restore()
-	cr.restore()
 
 	if tuple(pos) != min_pos and tuple(pos) != max_pos:
 		needs_update = True
 	else:
 		needs_update = False
 
-def check_mouse_over(event):
+def check_mouse_over(widget, event):
 	global needs_update
 
 	if event.x <= pos[0] + radius and event.y <= pos[1] + radius:

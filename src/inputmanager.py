@@ -5,6 +5,7 @@ from drawables import mainimage
 from drawables import helpicon
 from drawables import navigator
 from drawables import hexcolor
+from drawables import imagemanager
 import drawables
 
 down = False
@@ -37,7 +38,7 @@ class MouseManager(object):
 '''
 def on_key_press(widget, event):
 	keyname = gtk.gdk.keyval_name(event.keyval)
-	print 'KEYPRESS',keyname
+	print 'KEYPRESS', keyname
 
 	if keyname == 'Escape':
 		widget.on_destroy()
@@ -49,6 +50,7 @@ def on_key_press(widget, event):
 		imageloader.load_from_clipboard()
 	if event.keyval == gtk.keysyms.Right:
 		imageloader.next_img()
+		print 'blahuuh'
 	if event.keyval == gtk.keysyms.Left:
 		imageloader.prev_img()
 	if keyname == 'plus' or keyname == 'equal' or keyname == 'KP_Add':
@@ -76,6 +78,9 @@ def on_mouse_down(widget, event):
 	if owner == helpicon.ownerstr and event.button == 1:
 		helpicon.help_on = not helpicon.help_on
 		helpicon.needs_update = True
+	
+	if owner == imagemanager.ownerstr[1] and event.button == 1:
+		imagemanager.on_click_preview(widget, event)
 
 	print 'does event type match up with gtkgdk2button?', event.type == gtk.gdk._2BUTTON_PRESS
 	print 'the current owner is', owner
@@ -85,6 +90,8 @@ def on_mouse_down(widget, event):
 
 	if owner == navigator.ownerstr and down:
 		navigator.click_on_navigator(event)
+	elif owner == imagemanager.ownerstr[0] and down:
+		imagemanager.update_winheight(widget, event)
 	#TODO: mouse down event
 
 def on_mouse_up(widget, event):
@@ -111,7 +118,7 @@ def on_mouse_move(widget, event):
 	print 'mouse pos: {', event.x, ', ', event.y, '}'
 
 	if not down:
-		check_mouse_over(event)
+		check_mouse_over(widget, event)
 
 	if owner == 'mainimage' and down:
 		mainimage.pos_x += event.x - mouse_prev[0]
@@ -120,17 +127,20 @@ def on_mouse_move(widget, event):
 
 	if owner == navigator.ownerstr and down:
 		navigator.click_on_navigator(event)
+	
+	if owner == imagemanager.ownerstr[0] and down:
+		imagemanager.update_winheight(widget, event)
 
 	mouse_prev = [event.x, event.y]
 	
 	#TODO: mouse move event
 
-def check_mouse_over(event):
+def check_mouse_over(widget, event):
 	global owner
 
 	for i in reversed(drawables.all):
 		try:
-			tmp = i.check_mouse_over(event)
+			tmp = i.check_mouse_over(widget, event)
 			if tmp:
 				owner = tmp
 				break

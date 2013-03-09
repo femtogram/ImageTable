@@ -17,7 +17,7 @@ def on_window_resize(widget):
 	global screen_height
 	global needs_update
 	
-	screen_width, screen_height = widget.get_size()
+	# screen_width, screen_height = widget.get_size()
 	needs_update = True
 
 def zoom_in():
@@ -47,6 +47,11 @@ def zoom_direction(direction, center_x, center_y):
 	needs_update = True
 
 def draw(cr, width, height):
+	global screen_width
+	global screen_height
+
+	screen_width = width
+	screen_height = height
 	if imageloader.image is not None:
 		print imageloader.image
 		draw_image(cr, imageloader.image, width, height)
@@ -58,21 +63,29 @@ def draw_image(cr, img, width, height):
 
 	print 'pos: {', pos_x, ', ', pos_y, '}'
 
-	cr.save()
-	cr.translate(pos_x, pos_y)
+	tmpwidth = int(zoom * img.get_width())
+	tmpheight = int(zoom * img.get_height())
+
+	if pos_x < -tmpwidth:
+		pos_x = -tmpwidth
+	elif pos_x > width:
+		pos_x = width
+	if pos_y < -tmpheight:
+		pos_y = -tmpheight
+	elif pos_y > height:
+		pos_y = height
 	
+	cr.translate(pos_x, pos_y)
+
 	gdkcr = gtk.gdk.CairoContext(cr)
 	if zoom < 1:
-		x = int(zoom * img.get_width())
-		y = int(zoom * img.get_height())
-		tmpimg = img.scale_simple(x, y, gtk.gdk.INTERP_NEAREST)
+		tmpimg = img.scale_simple(tmpwidth, tmpheight, gtk.gdk.INTERP_NEAREST)
 		gdkcr.set_source_pixbuf(tmpimg, 0, 0)
 	else:
 		gdkcr.scale(zoom, zoom)
 		gdkcr.set_source_pixbuf(img, 0, 0)
 
 	gdkcr.paint()
-	cr.restore()
 
 def center_image():
 	global zoom
@@ -102,5 +115,5 @@ def center_image():
 
 	needs_update = True
 
-def check_mouse_over(event):
+def check_mouse_over(widget, event):
 	return 'mainimage' if imageloader.image else 'mainbackground'

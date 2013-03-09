@@ -21,6 +21,17 @@ def draw(cr, width, height):
 	'''
 	pass
 
+def load_img_at_index(idx):
+	global image
+	global index
+	global needs_update
+
+	imglist[index].img = None
+	index = idx
+	image = gtk.gdk.pixbuf_new_from_file(imglist[index].uri).apply_embedded_orientation()
+	mainimage.center_image()
+
+
 def next_img():
 	global image
 	global index
@@ -30,7 +41,7 @@ def next_img():
 		index += 1
 		imglist[index - 1].img = None
 		image = gtk.gdk.pixbuf_new_from_file(imglist[index].uri).apply_embedded_orientation()
-		needs_update = True
+		mainimage.center_image()
 
 def prev_img():
 	global image
@@ -41,7 +52,7 @@ def prev_img():
 		index -= 1
 		imglist[index + 1].img = None
 		image = gtk.gdk.pixbuf_new_from_file(imglist[index].uri).apply_embedded_orientation()
-		needs_update = True
+		mainimage.center_image()
 
 def load_from_url(url):
 	pass
@@ -105,7 +116,43 @@ class ImageContainer(object):
 		image = gtk.gdk.pixbuf_new_from_file(self.uri).apply_embedded_orientation()
 		index = self.index
 		print 'global index:', index
+		mainimage.center_image()
 		needs_update = True
+
+	def get_preview_width(self, imheight):
+		ret_width = self.preview.get_width()
+		if imheight < self.preview.get_height():
+			zoom = float(imheight) / self.preview.get_height()
+			ret_width = int(zoom * ret_width)
+		else:
+			ret_width = int(float(ret_width) / self.preview.get_height() * imheight)
+		return ret_width
+
+	# returns the width of the preview image
+	def draw_preview(self, cr, width, height, x, y, imwidth, imheight):
+		def _draw_bkgd(mwidth):
+			if index == self.index:
+				cr.save()
+				cr.set_source_rgb(1, 0.3, 0)
+				cr.rectangle(-2, -2, mwidth + 4, imheight + 4)
+				cr.fill()
+				cr.restore()
+
+		cr.save()
+		cr.translate(x, y)
+		gdkcr = gtk.gdk.CairoContext(cr)
+
+		_draw_bkgd(imwidth)
+		if imheight < self.preview.get_height():
+			zoom = float(imheight) / self.preview.get_height()
+			gdkcr.scale(zoom, zoom)
+			gdkcr.set_source_pixbuf(self.preview, 0, 0)
+		else:
+			tmpimg = self.preview.scale_simple(imwidth, int(imheight), gtk.gdk.INTERP_NEAREST)
+			gdkcr.set_source_pixbuf(tmpimg, 0, 0)
+
+		gdkcr.paint()
+		cr.restore()
 
 	def generate_preview(self, img):
 		def scale():

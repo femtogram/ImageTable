@@ -33,13 +33,9 @@ def draw(cr, width, height):
 	needs_update = False
 
 def draw_background(cr, width, height):
-	cr.save()
-
 	gdkcr = gtk.gdk.CairoContext(cr)
 	gdkcr.set_source_pixbuf(LOGO, (width - LOGO.get_width()) / 2,  40)
 	gdkcr.paint()
 
 	cr.set_source_rgba(1, 1, 1, 1)
 	text.draw_font_left_wrap(cr, width / 2 - 175, 150, 'Arial 12', BACKGROUNDTEXT, 350)
-
-	cr.restore()

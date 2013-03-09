@@ -33,11 +33,9 @@ def draw(cr, width, height):
 		help_width = width - border * 2
 		padding = 10
 
-		cr.save()
 		cr.set_source_rgba(0.4, 0.4, 0.4, 0.95)
 		cr.rectangle(border, 0, help_width, height)
 		cr.fill()
-		cr.restore()
 
 		cr.set_source_rgba(1, 1, 1, 0.4)
 		text.draw_font_left(cr, border + padding, 5, 'Sans 20', 'help')

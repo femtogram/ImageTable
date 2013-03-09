@@ -10,7 +10,6 @@ hexcolor = None
 def draw(cr, width, height):
 	if not hexcolor:
 		return
-	cr.save()
 
 	cr.translate(0, height - 12)
 	cr.rectangle(0, 0, 56, 12)
@@ -18,8 +17,6 @@ def draw(cr, width, height):
 	cr.fill()
 	cr.set_source_rgba(1, 1, 1, 0.8)
 	text.draw_font_left(cr, 2, 0, 'Courier 8', hexcolor)
-
-	cr.restore()
 
 def sethexcolor():
 	global needs_update
