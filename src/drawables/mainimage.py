@@ -1,5 +1,6 @@
 import imageloader
 import gtk
+from utilities import text
 
 needs_update = False
 
@@ -55,6 +56,8 @@ def draw(cr, width, height):
 	if imageloader.image is not None:
 		print imageloader.image
 		draw_image(cr, imageloader.image, width, height)
+	if imageloader.image is None:
+		text.draw_font_center(cr, screen_width, screen_height, 'Arial 12', 'Loading...')
 
 def draw_image(cr, img, width, height):
 	global zoom

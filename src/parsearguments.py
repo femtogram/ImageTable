@@ -19,6 +19,8 @@ if args.openfile:
 '''
 
 if args.openfile:
-	for i in args.openfile:
+	for i in args.openfile[:-1]:
 		imageloader.load_from_uri(i)
+	t = imageloader.load_from_uri(args.openfile[-1])
+	t.join()
 	imageloader.imglist[-1].set_image()

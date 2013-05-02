@@ -92,8 +92,12 @@ class Screen(gtk.DrawingArea):
 			path = ''
 			if uris[0].startswith('file://'):
 				# TODO: Finish this part!
+				print 'uri length',len(uris)
 				for uri in uris:
+					if not uri:
+						continue
 					imageloader.load_from_uri(urllib.unquote(uri.strip('file:')))
+					imageloader.needs_update = True
 				#imageloader.load_from_uri(urllib.unquote(uris[0].strip('file:')))
 				# fullurl = quote(fullurl, safe="%/:=&?~#+!$,;'@()*[]")
 			elif uris[0].startswith('http'):

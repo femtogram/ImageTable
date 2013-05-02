@@ -59,15 +59,18 @@ def load_from_url(url):
 
 def load_from_uri(uri):
 	global image
-
+	#print 'loading from the file uri',uri
 	def _load(cont, uri):
-		img = gtk.gdk.pixbuf_new_from_file(uri).apply_embedded_orientation()
-		cont.generate_preview(img)
+		global image
+		print 'loading loading from the file uri',uri
+		image = gtk.gdk.pixbuf_new_from_file(uri).apply_embedded_orientation()
+		cont.generate_preview(image)
 
-	cont = ImageContainer(uri=uri)
+	cont = ImageContainer(uri)
 	
-	t = Thread(target = _load, args=(cont, uri))
+	t = Thread(target=_load, args=([cont, uri]))
 	t.start()
+	return t
 
 def load_from_clipboard():
 	global image
@@ -163,6 +166,8 @@ class ImageContainer(object):
 			else:
 				self.preview = img.scale_simple(int (200.0 / img.get_height() * img.get_width()), 200, gtk.gdk.INTERP_HYPER)
 			self.preview.add_alpha(False, 250, 250, 250)
+			print 'done generating preview... current update state:', needs_update
+			mainimage.center_image()
 			needs_update = True
 		t = Thread(target=scale)
 		t.start()

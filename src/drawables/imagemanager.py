@@ -55,15 +55,18 @@ def draw_image_icons(cr, width, height):
 	else:
 		tmpheight = winheight
 	cr.save()
+	rows = int(winheight / 200)
+	print 'rows', rows
+	wrap_width = rows * width
 	preview_img_pos = list()
 	sum_width = imageloader.imglist[imageloader.index].get_preview_width(tmpheight - 20)
 	preview_img_pos.append(PreviewImagePositions(sum_width, tmpheight - 20, imageloader.index))
 	for i in range(1, len(imageloader.imglist)):
 		if imageloader.index - i >= 0:
 			tmp_width = imageloader.imglist[imageloader.index - i].get_preview_width(tmpheight - 20)
-			preview_img_pos.insert(0, PreviewImagePositions(tmp_width, tmpheight - 20, imageloader.index - i))
+			preview_img_pos.insert(0, PreviewImagePositions(tmp_width % width, tmp_width / width * 250 + tmpheight - 20, imageloader.index - i))
 			sum_width += tmp_width + 10
-			if sum_width > width:
+			if sum_width > wrap_width:
 				break
 		if imageloader.index + i < len(imageloader.imglist):
 			tmp_width = imageloader.imglist[imageloader.index + i].get_preview_width(tmpheight - 20)
@@ -73,7 +76,8 @@ def draw_image_icons(cr, width, height):
 				break
 	pos = 10
 	for idx, var in enumerate(preview_img_pos):
-		imageloader.imglist[var.index].draw_preview(cr, width, height, pos, divider_pos + 10, var.width, var.height)
+		pos %= width
+		imageloader.imglist[var.index].draw_preview(cr, width, height, pos, (divider_pos + 10), var.width, var.height)
 		pos += var.width + 10
 
 	'''
