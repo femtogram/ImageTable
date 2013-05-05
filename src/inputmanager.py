@@ -115,7 +115,7 @@ def on_mouse_scroll(widget, event):
 def on_mouse_move(widget, event):
 	global mouse_prev
 
-	print 'mouse pos: {', event.x, ', ', event.y, '}'
+	#print 'mouse pos: {', event.x, ', ', event.y, '}'
 
 	if not down:
 		check_mouse_over(widget, event)

@@ -7,15 +7,15 @@ winheight = 200
 line_width = 5
 divider_pos = 0
 start_index = 0
-preview_img_pos = list()
+positions = list()
 mouse_over_index = 0
 
 ownerstr = ('divider', 'manager', 'manager-background')
 
 class PreviewImagePositions(object):
-	def __init__(self, width, height, index):
+	def __init__(self, index, x, width):
+		self.x = x
 		self.width = width
-		self.height = height
 		self.index = index
 
 def should_draw():
@@ -45,7 +45,7 @@ def draw_divider_line(cr, y, width):
 	cr.restore()
 
 def draw_image_icons(cr, width, height):
-	global preview_img_pos
+	global positions
 
 	tmpheight = 0
 	if winheight < 60:
@@ -54,44 +54,42 @@ def draw_image_icons(cr, width, height):
 		tmpheight = 200
 	else:
 		tmpheight = winheight
-	cr.save()
-	rows = int(winheight / 200)
-	print 'rows', rows
-	wrap_width = rows * width
-	preview_img_pos = list()
-	sum_width = imageloader.imglist[imageloader.index].get_preview_width(tmpheight - 20)
-	preview_img_pos.append(PreviewImagePositions(sum_width, tmpheight - 20, imageloader.index))
-	for i in range(1, len(imageloader.imglist)):
-		if imageloader.index - i >= 0:
-			tmp_width = imageloader.imglist[imageloader.index - i].get_preview_width(tmpheight - 20)
-			preview_img_pos.insert(0, PreviewImagePositions(tmp_width % width, tmp_width / width * 250 + tmpheight - 20, imageloader.index - i))
-			sum_width += tmp_width + 10
-			if sum_width > wrap_width:
-				break
-		if imageloader.index + i < len(imageloader.imglist):
-			tmp_width = imageloader.imglist[imageloader.index + i].get_preview_width(tmpheight - 20)
-			preview_img_pos.append(PreviewImagePositions(tmp_width, tmpheight - 20, imageloader.index + i))
-			sum_width += tmp_width + 10
-			if sum_width > width:
-				break
-	pos = 10
-	for idx, var in enumerate(preview_img_pos):
-		pos %= width
-		imageloader.imglist[var.index].draw_preview(cr, width, height, pos, (divider_pos + 10), var.width, var.height)
-		pos += var.width + 10
+	
+	positions = list()
 
-	'''
-	for i in range(start_index, len(imageloader.imglist)):
-		#enumerate(imageloader.imglist):
-		if pos > width - 2:
-			break
-		tmpwidth = imageloader.imglist[i].get_preview_width(tmpheight - 20)
-		print 'index', i, 'tmpwidth', tmpwidth
-		print 'pos', pos, 'divider_pos', divider_pos
-		imageloader.imglist[i].draw_preview(cr, width, height, pos, divider_pos + 10, tmpwidth, tmpheight - 20) # add feature to highlight the one that is active
-		pos += tmpwidth + 10
-	'''
-	cr.restore()
+	def image_positions(position, width, side, idx):
+		posidx = 0
+		cont = True
+		print 'current index:', idx
+		preview_width = imageloader.imglist[idx].get_preview_width(tmpheight - 20)
+
+		next_idx = 0
+		if side == 'left':
+			position -= preview_width + 10
+			if position <= 10:
+				cont = False
+			else:
+				next_idx = idx - 1
+		elif side == 'right':
+			posidx = len(positions)
+			position += positions[-1].width + 10
+			if position >= width - preview_width + 10:
+				cont = False
+			else:
+				next_idx = idx + 1
+		positions.insert(posidx, PreviewImagePositions(idx, position, preview_width))
+		if cont and next_idx >= 0 and next_idx < len(imageloader.imglist):
+			image_positions(position, width, side, next_idx)
+
+	position = (width - imageloader.imglist[imageloader.index].get_preview_width(tmpheight - 20)) / 2
+	positions.append(PreviewImagePositions(imageloader.index, position, imageloader.imglist[imageloader.index].get_preview_width(tmpheight - 20)))
+	print imageloader.index
+	if imageloader.index != 0:
+		image_positions(position, width, 'left', imageloader.index - 1)
+	if imageloader.index != len(imageloader.imglist) - 1:
+		image_positions(position, width, 'right', imageloader.index + 1)
+	for idx, var in enumerate(positions):
+		imageloader.imglist[var.index].draw_preview(cr, width, height, var.x, divider_pos + 10, var.width, tmpheight - 20)
 
 def draw(cr, width, height):
 	if not should_draw():
@@ -133,11 +131,10 @@ def check_mouse_over(widget, event):
 		x_pos = 10
 		if event.y > widget.get_allocation().height - winheight + 10 and \
 			event.y < widget.get_allocation().height - 10:
-			for img in preview_img_pos:
-				if event.x > x_pos and event.x < x_pos + img.width:
+			for img in positions:
+				if event.x > img.x and event.x < img.x + img.width:
 					mouse_over_index = img.index
 					return ownerstr[1]
-				x_pos += img.width + 10
 		return ownerstr[2]
 
 def on_click_preview(widget, event):
