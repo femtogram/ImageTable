@@ -7,6 +7,7 @@ from drawables import navigator
 from drawables import hexcolor
 from drawables import imagemanager
 import drawables
+from utilities import filechooser
 
 down = False
 
@@ -33,6 +34,7 @@ class MouseManager(object):
 	t/T toggle up and down
 	p/P/v/V pastes the image
 	h/H/?/'/' opens help
+	o open a file chooser dialog
 	+ is zoom in
 	- is zoom out
 '''
@@ -44,6 +46,10 @@ def on_key_press(widget, event):
 		widget.on_destroy()
 	if keyname.lower() == 't':
 		widget.on_toggle_above()
+	if keyname.lower() == 'o':
+		images = filechooser.open_file()
+		for i in images:
+			imageloader.load_from_uri(i)
 	if keyname.lower() == 'c':
 		hexcolor.sethexcolor()
 	if keyname.lower() == 'p' or keyname.lower() == 'v':

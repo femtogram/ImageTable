@@ -137,7 +137,7 @@ class ImageContainer(object):
 			if index == self.index:
 				cr.save()
 				cr.set_source_rgb(1, 0.3, 0)
-				cr.rectangle(-2, -2, mwidth + 4, imheight + 4)
+				cr.rectangle(-2, -2, mwidth + 5, imheight + 4)
 				cr.fill()
 				cr.restore()
 
