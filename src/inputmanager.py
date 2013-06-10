@@ -72,6 +72,8 @@ def on_mouse_down(widget, event):
 	global down
 	global mouse_prev
 	global owner
+	
+	on_mouse_move(widget, event)
 
 	print 'DOWN',event.button
 	down = True
