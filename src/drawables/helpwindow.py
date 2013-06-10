@@ -11,7 +11,7 @@ fullwindow = True
 border = 45
 
 description = \
-'\tImageTable allows for simple image viewing of local \
+'ImageTable allows for simple image viewing of local \
 file and clipboard images.'
 
 help = (('<Action>', '<shortcut>'),
