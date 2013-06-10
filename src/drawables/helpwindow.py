@@ -6,6 +6,7 @@ import helpicon
 from utilities import text
 
 needs_update = False
+fullwindow = True
 
 border = 45
 
@@ -15,11 +16,13 @@ file and clipboard images.'
 
 help = (('<Action>', '<shortcut>'),
 		('Help', 'h,/,?'),
-		('Paste image into viewer', 'p,ctrl-v'),
+		('Paste image into viewer', 'p,v'),
 		('Toggle window on top', 't'),
 		('Display hex color at cursor','c'),
 		('Zoom in', '+,='),
-		('Zoom out', '-'))
+		('Zoom out', '-'),
+		('Open a file', 'o'),
+		('Quit the program', 'ESC'))
 
 def draw_help_text(cr, width, height, x_center, y, text_width, y_pos, help_item):
 	cr.save()
