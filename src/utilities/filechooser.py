@@ -1,8 +1,14 @@
 import pygtk
 pygtk.require('2.0')
 import gtk
+import imageloader
 
-def open_file():
+def open_file_dialog():
+	images = _file_dialog()
+	for i in images:
+		imageloader.load_from_uri(i)
+
+def _file_dialog():
 	dialog = gtk.FileChooserDialog('Open',
 					None,
 					gtk.FILE_CHOOSER_ACTION_OPEN,

@@ -47,9 +47,7 @@ def on_key_press(widget, event):
 	if keyname.lower() == 't':
 		widget.on_toggle_above()
 	if keyname.lower() == 'o':
-		images = filechooser.open_file()
-		for i in images:
-			imageloader.load_from_uri(i)
+		filechooser.open_file_dialog()
 	if keyname.lower() == 'c':
 		hexcolor.sethexcolor()
 	if keyname.lower() == 'p' or keyname.lower() == 'v':

@@ -97,7 +97,8 @@ class Screen(gtk.DrawingArea):
 					if not uri:
 						continue
 					imageloader.load_from_uri(urllib.unquote(uri.strip('file:')))
-					imageloader.needs_update = True
+				imageloader.needs_update = True
+				imageloader.index = len(imageloader.imglist) - 1
 				#imageloader.load_from_uri(urllib.unquote(uris[0].strip('file:')))
 				# fullurl = quote(fullurl, safe="%/:=&?~#+!$,;'@()*[]")
 			elif uris[0].startswith('http'):
